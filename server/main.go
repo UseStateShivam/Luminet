@@ -35,7 +35,7 @@ func startReverseProxy(listenAddr, targetURL string) error {
 
 func main() {
 	// Define the target port to forward requests to
-	target := "http://localhost:3000"
+	target := "http://localhost:3000" // TODO: Replace with the actual target port
 
 	// Start the reverse proxy server
 	err := startReverseProxy(":8080", target)
@@ -43,4 +43,3 @@ func main() {
 		log.Fatalf("Server failed: %v", err)
 	}
 }
-
