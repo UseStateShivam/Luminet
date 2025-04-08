@@ -8,21 +8,24 @@ import (
 )
 
 func main() {
-	app := fiber.New()
+	app := fiber.New() // Initialize a new Fiber app
 
-	// Only allow upgrade if it’s a WebSocket
+	// Middleware to allow WebSocket upgrade requests
 	app.Use("/ws/:id", func(c *fiber.Ctx) error {
+		// Check if the request is a WebSocket upgrade
 		if websocket.IsWebSocketUpgrade(c) {
-			return c.Next()
+			return c.Next() // Allow the request to proceed
 		}
-		return fiber.ErrUpgradeRequired
+		return fiber.ErrUpgradeRequired // Deny non-WebSocket requests
 	})
 
-	// Tunnel endpoint for clients
+	// Handle WebSocket connections for tunnel clients
 	app.Get("/ws/:id", websocket.New(HandleClientTunnel))
 
-	// Forward requests from web to the client
+	// Route to forward HTTP requests to corresponding client tunnels
 	app.All("/:id/*", HandleProxyRequest)
 
-	log.Fatal(app.Listen(":8080")) // Render's default port
+	// Start the Fiber app and listen on the default port
+	log.Fatal(app.Listen(":8080"))
 }
+
