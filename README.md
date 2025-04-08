@@ -9,23 +9,23 @@
 Luminet is a powerful developer tool that creates secure tunnels from the public internet to your local development environment. It solves the common challenge of exposing localhost services to external users and services.
 
 ```
-            Public Client
-                 │
-                 ▼
-        🌍 Public Internet
-                 │
-                 ▼
-        🌐 Tunneling Server
-            - Listens for public connections
-            - Forwards data between phone & local server
-                 │
-                 ▼
-        🏠 Local Network
-                 │
-                 ▼
-        📞 Local TCP Server
-            - Listens on port 8000
-            - Receives & responds to messages
+                                            Public Client
+                                                │
+                                                ▼
+                                        🌍 Public Internet
+                                                │
+                                                ▼
+                                        🌐 Tunneling Server
+                                            - Listens for public connections
+                                            - Forwards data between phone & local server
+                                                │
+                                                ▼
+                                        🏠 Local Network
+                                                │
+                                                ▼
+                                        📞 Local TCP Server
+                                            - Listens on port 8000
+                                            - Receives & responds to messages
 ```
 
 ## What is Luminet?
