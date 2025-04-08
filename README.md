@@ -9,28 +9,28 @@
 Luminet is a powerful developer tool that creates secure tunnels from the public internet to your local development environment. It solves the common challenge of exposing localhost services to external users and services.
 
 ```
-                                            Public Client
-                                                │
-                                                ▼
-                                        🌍 Public Internet
-                                                │
-                                                ▼
-                                        🌐 Tunneling Server
-                                            - Listens for public connections
-                                            - Forwards data between phone & local server
-                                                │
-                                                ▼
-                                        🏠 Local Network
-                                                │
-                                                ▼
-                                        📞 Local TCP Server
-                                            - Listens on port 8000
-                                            - Receives & responds to messages
+                                        Public Client
+                                            │
+                                            ▼
+                                    🌍 Public Internet
+                                            │
+                                            ▼
+                                    🌐 Tunneling Server
+                                        - Listens for public connections
+                                        - Forwards data between phone & local server
+                                            │
+                                            ▼
+                                    🏠 Local Network
+                                            │
+                                            ▼
+                                    📞 Local TCP Server
+                                        - Listens on port 8000
+                                        - Receives & responds to messages
 ```
 
 ## What is Luminet?
 
-Luminet provides a **public URL** (like `https://xyz123.luminet.io`) that tunnels requests to your local machine (like `http://localhost:3000`).
+Luminet provides a **public URL** (like `https://xyz123.luminet.net.in`) that tunnels requests to your local machine (like `http://localhost:3000`).
 
 ### Key Benefits
 
@@ -76,7 +76,7 @@ When you run `luminet http 3000`:
 
 Luminet's infrastructure:
 
-1. Assigns a unique subdomain (e.g., `https://abc123.luminet.io`)
+1. Assigns a unique subdomain (e.g., `https://abc123.luminet.net.in`)
 2. Maps this subdomain to your tunnel session
 3. Makes your local server publicly accessible
 
@@ -86,7 +86,7 @@ When someone accesses your public URL:
 
 ```mermaid
 sequenceDiagram
-    User->>Luminet Server: Request to abc123.luminet.io
+    User->>Luminet Server: Request to abc123.luminet.net.in
     Luminet Server->>Your Computer: Forward request through tunnel
     Your Computer->>Local Server: Process request on localhost:3000
     Local Server->>Your Computer: Generate response
@@ -104,8 +104,8 @@ Luminet operates as a multi-tenant platform with:
 
 ```json
 {
-  "abc123.luminet.io": "sessionID_1",
-  "user456.luminet.io": "sessionID_2"
+  "abc123.luminet.net.in": "sessionID_1",
+  "user456.luminet.net.in": "sessionID_2"
 }
 ```
 
@@ -133,5 +133,5 @@ luminet http 3000 --subdomain=myproject
 
 <div align="center">
   <p><strong>Ready to tunnel? Get started with Luminet today!</strong></p>
-  <a href="https://luminet.io">Visit luminet.io →</a>
+  <a href="https://luminet.net.in">Visit luminet.net.in →</a>
 </div>
