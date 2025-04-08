@@ -1,31 +1,46 @@
+// server/main.go
 package main
 
 import (
+	"fmt"
 	"log"
-
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/websocket/v2"
+	"net/http"
+	"net/http/httputil"
+	"net/url"
 )
 
+// startReverseProxy starts a reverse proxy server on the specified listen address
+// and forwards incoming requests to the target URL.
+func startReverseProxy(listenAddr, targetURL string) error {
+	// Parse the target URL
+	target, err := url.Parse(targetURL)
+	if err != nil {
+		return fmt.Errorf("error parsing target URL: %v", err)
+	}
+
+	// Create the reverse proxy
+	proxy := httputil.NewSingleHostReverseProxy(target)
+
+	// Optional: Customize the director (e.g., to modify headers)
+	proxy.Director = func(req *http.Request) {
+		req.URL.Scheme = target.Scheme
+		req.URL.Host = target.Host
+		req.Host = target.Host
+	}
+
+	// Start the proxy server
+	log.Printf("Reverse proxy running on http://%s → %s", listenAddr, targetURL)
+	return http.ListenAndServe(listenAddr, proxy)
+}
+
 func main() {
-	app := fiber.New() // Initialize a new Fiber app
+	// Define the target port to forward requests to
+	target := "http://localhost:3000"
 
-	// Middleware to allow WebSocket upgrade requests
-	app.Use("/ws/:id", func(c *fiber.Ctx) error {
-		// Check if the request is a WebSocket upgrade
-		if websocket.IsWebSocketUpgrade(c) {
-			return c.Next() // Allow the request to proceed
-		}
-		return fiber.ErrUpgradeRequired // Deny non-WebSocket requests
-	})
-
-	// Handle WebSocket connections for tunnel clients
-	app.Get("/ws/:id", websocket.New(HandleClientTunnel))
-
-	// Route to forward HTTP requests to corresponding client tunnels
-	app.All("/:id/*", HandleProxyRequest)
-
-	// Start the Fiber app and listen on the default port
-	log.Fatal(app.Listen(":8080")) // TODO: Replace with the actual default port
+	// Start the reverse proxy server
+	err := startReverseProxy(":8080", target)
+	if err != nil {
+		log.Fatalf("Server failed: %v", err)
+	}
 }
 

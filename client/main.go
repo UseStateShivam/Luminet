@@ -28,11 +28,11 @@ func main() {
 	// Establish a WebSocket connection to the remote server.
 	conn, _, err := websocket.DefaultDialer.Dial(remoteServer, nil)
 	if err != nil {
-		log.Fatal("❌ Failed to connect tunnel:", err)
+		log.Fatal("Failed to connect tunnel:", err)
 	}
 	defer conn.Close() // Ensure the connection is closed when the main function exits.
 
-	log.Println("🔗 Tunnel established! Listening for requests...")
+	log.Println("Tunnel established! Listening for requests...")
 
 	for {
 		var req Request
@@ -51,7 +51,7 @@ func main() {
 		// Send the request to the local server and receive a response.
 		resp, err := client.Do(httpReq)
 		if err != nil {
-			conn.WriteMessage(websocket.TextMessage, []byte("❌ Forwarding failed"))
+			conn.WriteMessage(websocket.TextMessage, []byte("Forwarding failed"))
 			continue // Skip further processing if forwarding fails.
 		}
 
