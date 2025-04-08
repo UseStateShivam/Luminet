@@ -2,7 +2,7 @@
 
 > **Securely expose your local servers to the internet**
 
-Luminet was built by [ByteWorks](https://byteworks.in), a technology consulting agency based in India. We specialize in providing services for front-end web design, app design, web development, app development, backend system design, and development. Our team is well-versed in using tools like Kafka, Jira, and in designing scalable microservices and databases like PostgreSQL and Supabase. We also provide end-to-end ready apps and APIs that are ready to work at scale, along with proper documentation and three free changes.
+Luminet was built by [ByteWorks](https://byteworks.live), a technology consulting agency based in India. We specialize in providing services for front-end web design, app design, web development, app development, backend system design, and development. Our team is well-versed in using tools like Kafka, Jira, and in designing scalable microservices and databases like PostgreSQL and Supabase. We also provide end-to-end ready apps and APIs that are ready to work at scale, along with proper documentation and three free changes.
 
 ## Overview
 
