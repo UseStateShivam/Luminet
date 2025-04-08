@@ -42,7 +42,7 @@ func main() {
 }
 
 // The server has now opened a 2-way communication line to a client.
-func handleConnection(conn net.Conn) error{
+func handleConnection(conn net.Conn) error {
 	// Every connection will likely need:
 	// A unique ID (for tracking)
 	// A timestamp for last heartbeat
@@ -58,7 +58,8 @@ func handleConnection(conn net.Conn) error{
 	maxTimeout := time.Minute
 	// The max timeout can be tweaked as per the requirements of the application and the environment
 	// This is a go routine that runs in the background
-	go handleTimeout(conn, heartBeatTimeStamp, maxTimeout)
+	// Using a pointer to the last heartbeat timestamp
+	go handleTimeout(conn, &heartBeatTimeStamp, maxTimeout)
 	// The handleTimeout function is called to check if the connection is still alive
 	// If the connection is idle, the server will close the connection
 	// conn.Read() is the gateway into the TCP stream.
@@ -67,26 +68,47 @@ func handleConnection(conn net.Conn) error{
 	// Partial messages (need to stitch them)
 	// Multiple messages at once (need to split them)
 	// That’s our job to handle at the application layer.
-	buffer := make([]byte, 1024)
-	// Requires a buffer to read into
-	n, readError := conn.Read(buffer)
-	if readError != nil {
-		if readError == io.EOF {
-			// If the connection is closed, the server will close the connection
-			conn.Close()
+	// Loop around the Read to stay alive as long as the connection is open.
+	for {
+		buffer := make([]byte, 1024)
+		// Requires a buffer to read into
+		n, readError := conn.Read(buffer)
+		// Returns how many bytes were read
+		// And also an error (which tells if the connection closed, timed out, etc.)
+		if readError != nil {
+			if readError == io.EOF {
+				// If the connection is closed, the server will close the connection
+				conn.Close()
+			}
+			return readError
 		}
-		return readError
+		// Store the message in the buffer and check if it's a heartbeat
+		message := string(buffer[:n])
+		// If the message is a heartbeat, the server will respond with a heartbeat
+		// And update the last heartbeat timestamp
+		// So that the connection is still alive
+		if message == "PING" {
+			// Update the last heartbeat timestamp
+			heartBeatTimeStamp = time.Now()
+			// Respond with a heartbeat
+			conn.Write([]byte("PONG"))
+			print("Heartbeat received\n")
+			print("PONG")
+		}
 	}
-	message := string(buffer[:n])
-	print(message)
-	// Returns how many bytes were read
-	// And also an error (which tells if the connection closed, timed out, etc.)
-	return nil
 }
 
-func handleTimeout(conn net.Conn, heartBeatTimeStamp time.Time, maxTimeout time.Duration) {
-	// If the connection is idle for max timeout, the server will close the connection
-	if time.Since(heartBeatTimeStamp) > maxTimeout {
-		conn.Close()
+func handleTimeout(conn net.Conn, heartBeatTimeStamp *time.Time, maxTimeout time.Duration) {
+	// NewTicker is used to create a ticker that ticks every max timeout
+	ticker := time.NewTicker(maxTimeout)
+	// Defer is used to ensure that the ticker is stopped when the function ends
+	defer ticker.Stop()
+	// Loop around the ticker
+	for {
+		// <-ticker.C is used to wait for the ticker to tick
+		<-ticker.C	// If the connection is idle for max timeout, the server will close the connection
+		if time.Since(*heartBeatTimeStamp) > maxTimeout {
+			conn.Close()
+		}
 	}
 }
