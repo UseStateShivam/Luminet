@@ -54,7 +54,6 @@ func main() {
 			conn.WriteMessage(websocket.TextMessage, []byte("❌ Forwarding failed"))
 			continue // Skip further processing if forwarding fails.
 		}
-		defer resp.Body.Close() // Ensure the response body is closed after reading.
 
 		// Read the response body from the local server.
 		body, _ := io.ReadAll(resp.Body)
