@@ -2,7 +2,7 @@
 
 > **Securely expose your local servers to the internet**
 
-<!-- ![Luminet Flow Diagram](https://placeholder-image.com/luminet-flow.png) -->
+![Luminet Flow Diagram](image.png)
 
 ## Overview
 
