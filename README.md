@@ -7,6 +7,12 @@
 ## Overview
 
 Luminet is a powerful developer tool that creates secure tunnels from the public internet to your local development environment. It solves the common challenge of exposing localhost services to external users and services.
+A Go-based Reverse Proxy and Tunneling Solution
+Secure, fast, and developer-friendly — the perfect tool for local development, internal tool access, or remote device communication.
+> **Capabilities for clients/devs:**
+> - Expose local services to the internet (dev server, IoT, webhook testing)
+> - Plug-and-play CLI support for different ports/services
+> - Modular enough to be extended into a full SaaS like ngrok or localtunnel
 
 ```
                                         Public Client
