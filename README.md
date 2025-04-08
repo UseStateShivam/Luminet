@@ -136,8 +136,3 @@ luminet http 3000 --subdomain=myproject
 - **Authentication** to protect your exposed services
 
 ---
-
-<div align="center">
-  <p><strong>Ready to tunnel? Get started with Luminet today!</strong></p>
-  <a href="https://luminet.net.in">Visit luminet.net.in →</a>
-</div>
