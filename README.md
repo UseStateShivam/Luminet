@@ -118,14 +118,11 @@ Luminet operates as a multi-tenant platform with:
 ## Getting Started
 
 ```bash
-# Install Luminet
-npm install -g luminet
-
+# Fork the branch
 # Start a tunnel to your local server
-luminet http 3000
-
-# With custom subdomain (pro accounts)
-luminet http 3000 --subdomain=myproject
+cd .\server
+# Add your target port
+go run .
 ```
 
 ## Advanced Features
