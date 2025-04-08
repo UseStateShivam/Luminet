@@ -16,9 +16,9 @@ type Config struct {
 // ParseCLI parses the command-line flags and returns a Config.
 func ParseCLI() Config {
 	// The port number that the reverse proxy will listen on.
-	httpPort := flag.String("port", "8080", "HTTP port for reverse proxy")
+	httpPort := flag.String("port", "8080", "HTTP port for reverse proxy") // TODO: Replace with the actual HTTP port
 	// The port number that the reverse proxy will forward TCP requests to.
-	tcpPort := flag.String("tcpport", "8000", "TCP server to forward to")
+	tcpPort := flag.String("tcpport", "8000", "TCP server to forward to") // TODO: Replace with the actual TCP port
 	// Parse the command-line flags.
 	flag.Parse()
 

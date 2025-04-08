@@ -15,7 +15,7 @@ import (
 // reverse proxy will forward incoming HTTP requests to.
 func SetupProxy(app *fiber.App, targetPort string) {
 	// Set up the target URL that the reverse proxy will forward requests to.
-	target := fmt.Sprintf("http://localhost:%s", targetPort)
+	target := fmt.Sprintf("http://localhost:%s", targetPort) // TODO: Replace with the actual target URL
 
 	// Set up a middleware function that will be called for every incoming request.
 	app.Use("/*", func(c *fiber.Ctx) error {

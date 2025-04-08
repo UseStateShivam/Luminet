@@ -26,6 +26,6 @@ func main() {
 	app.All("/:id/*", HandleProxyRequest)
 
 	// Start the Fiber app and listen on the default port
-	log.Fatal(app.Listen(":8080"))
+	log.Fatal(app.Listen(":8080")) // TODO: Replace with the actual default port
 }
 

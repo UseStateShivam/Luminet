@@ -19,11 +19,11 @@ type Request struct {
 
 func main() {
 	// Define the tunnel ID and the local port to forward requests to.
-	tunnelID := "byteworks"
-	localPort := "5173"
+	tunnelID := "byteworks" // TODO: Replace with the actual tunnel ID
+	localPort := "5173" // TODO: Replace with the actual local port
 	
 	// Construct the WebSocket URL for the remote server.
-	remoteServer := "ws://localhost:8080/ws/" + tunnelID
+	remoteServer := "ws://localhost:8080/ws/" + tunnelID // TODO: Replace with the actual remote server URL
 
 	// Establish a WebSocket connection to the remote server.
 	conn, _, err := websocket.DefaultDialer.Dial(remoteServer, nil)
@@ -43,7 +43,7 @@ func main() {
 		}
 
 		// Construct the URL to forward the request to the local server.
-		url := "http://localhost:" + localPort + req.Path
+		url := "http://localhost:" + localPort + req.Path // TODO: Replace with the actual local server URL
 		// Create a new HTTP request with the method, URL, and body from the received request.
 		httpReq, _ := http.NewRequest(req.Method, url, bytes.NewBuffer([]byte(req.Body)))
 		client := &http.Client{} // Create an HTTP client to send the request.
